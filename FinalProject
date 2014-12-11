@@ -1,0 +1,145 @@
+# file name: FnalProject.py
+# author: Julia Diliberto, Matthew Bozelka, Robert Contreras, Ryan Doherty
+# description: CST205 Final Project
+
+
+#Global variables
+
+roomName = ["front yard", "living room", "bedroom", "kitchen", "office","laundry room","back yard","attic"]
+roomDirections = ["Go north to enter the house.",
+                  "Go north to the bedroom, west to the kitchen,\n or south to the front yard",
+                  "Go south to the living room or west to the office.",
+                  "Go east to the living room.",
+                  "Go north to the laundry room or east to the bedroom.",
+                  "Go south to the office, north to the back yard,\n or up to the attic.",
+                  "Go south to the laundry room.",
+                  "Go down to the laundry room."]
+               
+
+messageDirection = "Which way do you want to go?"
+messageDirectionError = "Sorry, can't go that way."			
+
+messageIntroduction = """
+Hello. This is a placeholder introduction.
+Accepted Commands
+Navigation: 'north','south', 'east', 'west','up','down'
+Quit Game:  'exit'
+Redisplay Instructions: 'help'
+"""
+					  
+messageRoomEntry = "You are in the %s"
+messageEndGame = "Thanks for visiting. Good bye."
+
+
+
+
+
+
+
+
+
+
+#MODEL
+#Business logic goes here
+
+
+
+#Take user's input command and currentRoom value
+#Reassigns currentRoom to new room value based on
+#directional command and return new currentRoom
+#currentRoom corresponds to the indexes of the room lists
+def moveRoom(inputString,currentRoom):
+  if (inputString=="north"):
+    currentRoom=currentRoom+1
+  elif (inputString=="south"):
+    currentRoom=currentRoom-1
+  elif (inputString=="west"):
+    currentRoom=currentRoom+2
+  elif (inputString=="east"):
+    currentRoom=currentRoom-2
+  elif (inputString=="up"and currentRoom==5):
+    currentRoom=7
+  elif (inputString=="down"and currentRoom==7):
+    currentRoom=5
+  return currentRoom
+
+
+def getRoomInformation(currentRoom):
+ return messageRoomEntry % (roomName[currentRoom]) + "\n" + roomDirections[currentRoom] + "\n" + messageDirection
+
+
+
+
+
+
+
+#VIEW
+#User Interface code goes here
+
+
+def displayRoomInformation(currentRoom):
+  printNow(getRoomInformation(currentRoom))
+
+def displayIntroduction():
+  showInformation(messageIntroduction)
+
+def displayMessage(message):
+  printNow(message)
+
+
+
+
+
+
+
+
+
+
+
+
+#CONTROLLER
+#User interaction code goes here 
+
+def getUserInput(string):
+  return requestString(string)
+
+def runGame():
+  displayIntroduction()
+  
+  currentRoom = 0
+  
+  displayRoomInformation(currentRoom)
+  inputString=getUserInput(getRoomInformation(currentRoom))
+       
+  while (inputString<>"exit"): 
+    if (inputString=="help"):
+      displayIntroduction()
+      displayRoomInformation(currentRoom)
+      inputString=getUserInput(getRoomInformation(currentRoom))
+    else:
+      if (roomDirections[currentRoom].find(inputString.lower())>=0):
+        currentRoom=moveRoom(inputString,currentRoom)
+        displayRoomInformation(currentRoom)
+        inputString=getUserInput(getRoomInformation(currentRoom))
+      else:
+        displayMessage(messageDirectionError)
+        displayRoomInformation(currentRoom)
+        inputString=getUserInput(getRoomInformation(currentRoom))
+
+
+def endGame():
+  displayMessage(messageEndGame)
+  
+
+def main():
+  runGame()   
+  endGame()
+
+  
+  
+  
+  
+  
+  
+  
+  
