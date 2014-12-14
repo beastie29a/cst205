@@ -1,11 +1,12 @@
 import time
+import threading
 
-path = "/Users/rcontreras/code/cst205-final" # Set to root path of github repo
+path = "/Users/rcontreras/code/cst205-final/Sounds/" # Set to root path of github repo
 
 #
 # Game play music, need to figure out way to call function in the background
 def backgroundMusic():
-  file = path + '/sound/background.wav'
+  file = path + 'background.wav'
   sound = makeSound(file)
   rate = getSamplingRate(sound)
   samples = getLength(sound)
@@ -15,6 +16,11 @@ def backgroundMusic():
   while (true):
     play(sound)
     time.sleep(length)
+
+# Example of how background sound can be called in a separate thread in the background
+#music_thread = threading.Thread(target=backgroundMusic)
+#music_thread.start()
+#  Have not found a way to stop the thread
 
 # Functino to play sound when entering a room
 def enterRoomSound(room):
@@ -44,7 +50,7 @@ def itemSound(item):
     soundLibrary('plock')
     
 def soundLibrary( sound ):
-  file = path + '/sound/' + sound + '.wav'
+  file = path + sound + '.wav'
   sound = makeSound(file)
   play(sound)
 
@@ -54,9 +60,8 @@ def combineSounds():
   
 def helpMeSound():
   soundLibrary('help')
-
   
 # 
-# Courtesy of freesound.com
+# Sound files courtesy of freesound.com
 # http://www.freesound.org/people/frederic.font/sounds/130878/
 
