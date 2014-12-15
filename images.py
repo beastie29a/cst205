@@ -1,5 +1,7 @@
-picArms = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\picArms.jpg')
-picNoArms = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hangman.jpg')
+picArmsPath = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\picArms.jpg'
+picNoArmsPath = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hangman.jpg'
+picArms = makePicture(picArmsPath)
+picNoArms = makePicture(picNoArmsPath)
 newPic = makeEmptyPicture(getWidth(picArms), getHeight(picArms),white)
 currentPic =  makeEmptyPicture(getWidth(picArms), getHeight(picArms),white)
 
@@ -70,17 +72,25 @@ def initialPic (currentPic):
 
 def updatePicStatus(incorrectGuesses, selectedItem):
 # Updates the picture to reflect the number of mistakes made so far
-  face1=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hurt.jpg')  
+
+# Face file paths
+  face1Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hurt.jpg'
+  face2Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\question.jpg'
+  face3Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\shocked.jpg'
+  face4Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\sad.jpg'
+  face5Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\pleading.jpg'
+  face6Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\last cigarette.jpg'
+  face1=makePicture(face1Path)  
   deadMessage1 = "Do you want to see me pushing up daisies?"
-  face2=makePicture( 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\question.jpg')
+  face2=makePicture(face2Path)
   deadMessage2 = "Come on, I'm gonna be six feet under!"
-  face3=yellowToGreen(makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\shocked.jpg'))
+  face3=yellowToGreen(makePicture(face3Path))
   deadMessage3 = "I'm about to kick the bucket here?!?"
-  face4=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\sad.jpg')
+  face4=makePicture(face4Path)
   deadMessage4 = "Worm food! That's all I have to say"
-  face5=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\pleading.jpg')
+  face5=makePicture(face5Path)
   deadMessage5 = "I'm fading away."
-  face6=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\last cigarette.jpg')
+  face6=makePicture(face6Path)
   deadMessage6 = "That's it. I'm riding the white horse."
  
   if incorrectGuesses == 1:
