@@ -1,5 +1,7 @@
-picArms = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\picArms.jpg')
-picNoArms = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\hangman.jpg')
+picArms = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\picArms.jpg')
+picNoArms = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hangman.jpg')
+newPic = makeEmptyPicture(getWidth(picArms), getHeight(picArms),white)
+currentPic =  makeEmptyPicture(getWidth(picArms), getHeight(picArms),white)
 
 def yellowToGreen(pic):
 # Takes a picture as input
@@ -41,60 +43,64 @@ def addTextBoxes(pic,message,chosenItem):
    addTextWithStyle(pic, rect2X + 2, rect2Y+30,choiceMessage2, mystyle, white) # second line, second textbox
  return pic
 
-def chromakey(face, backpic):
+def chromakey(face, backPic):
   headX = 202 # X coordinate of face
   headY = 68 # Y coordinate of face
-  newpic = makeEmptyPicture(getWidth(backpic), getHeight(backpic),white)
-  copyInto (face,newpic,headX,headY)
-  for x in range (0,getWidth(newpic)):
-    for y in range (0,getHeight(newpic)):
-      pix = getPixel(newpic,x,y)
+  newPic = makeEmptyPicture(getWidth(backPic), getHeight(backPic),white)
+  copyInto (face,newPic,headX,headY)
+  for x in range (0,getWidth(newPic)):
+    for y in range (0,getHeight(newPic)):
+      pix = getPixel(newPic,x,y)
       color = getColor(pix)
       if distance(color,white)<10:
-        altpix = getPixel(backpic,x,y)
+        altpix = getPixel(backPic,x,y)
         setColor(pix,getColor(altpix))
-  return newpic
+  return newPic
   
-# Inital status
-face = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\worried.jpg')
-newpic = chromakey(face,picNoArms)
-newpic = addTextBoxes(newpic,introMessage, "none")
-introMessage = "Man, you gotta help. Go look in the house. Find some tools."
-show(newpic)
+def initialPic (currentPic):
+# Takes newPic as input
+# Fills and displays newPic to represent inital status
 
-def updatePicStatus(levelOfDestruction, itemChosen):
+  face = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\worried.jpg')
+  introMessage = "Man, you gotta help. Go look in the house. Find some tools."
+  newPic = chromakey(face,picNoArms)
+  newPic = addTextBoxes(newPic,introMessage, "none", currentPic)
+
+  show(newPic)
+
+def updatePicStatus(incorrectGuesses, selectedItem):
 # Updates the picture to reflect the number of mistakes made so far
-  face1=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\hurt.jpg')  
+  face1=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hurt.jpg')  
   deadMessage1 = "Do you want to see me pushing up daisies?"
-  face2=makePicture( 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\question.jpg')
+  face2=makePicture( 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\question.jpg')
   deadMessage2 = "Come on, I'm gonna be six feet under!"
-  face3=yellowToGreen(makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\shocked.jpg'))
+  face3=yellowToGreen(makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\shocked.jpg'))
   deadMessage3 = "I'm about to kick the bucket here?!?"
-  face4=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\sad.jpg')
+  face4=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\sad.jpg')
   deadMessage4 = "Worm food! That's all I have to say"
-  face5=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\pleading.jpg')
+  face5=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\pleading.jpg')
   deadMessage5 = "I'm fading away."
-  face6=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\last cigarette.jpg')
+  face6=makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\last cigarette.jpg')
   deadMessage6 = "That's it. I'm riding the white horse."
  
-  if levelOfDestruction == 1:
-    newpic = chromakey(face1,picArms)
-    newpic = addTextBoxes(newpic,deadMessage1,itemChosen)
-  elif levelOfDestruction == 2:
-    newpic = chromakey(face2,picNoArms)
-    newpic = addTextBoxes(newpic,deadMessage2,itemChosen)
-  elif levelOfDestruction == 3:
-    newpic = chromakey(face3,picArms)
-    newpic = addTextBoxes(newpic,deadMessage3,itemChosen)
-  elif levelOfDestruction == 4:
-    newpic = chromakey(face4,picNoArms)   
-    newpic =  addTextBoxes(newpic,deadMessage4,itemChosen)
-  elif levelOfDestruction == 5:
-    newpic = chromakey(face5,picArms)
-    newpic = addTextBoxes(newpic,deadMessage5,itemChosen)
-  elif levelOfDestruction == 6:
-    newpic = chromakey(face6,picArms)
-    newpic = addTextBoxes(newpic,deadMessage6,"none")
-  show (newpic)
-  
+  if incorrectGuesses == 1:
+    newPic = chromakey(face1,picArms)
+    newPic = addTextBoxes(newpic,deadMessage1,selectedItem)
+  elif incorrectGuesses == 2:
+    newPic = chromakey(face2,picNoArms)
+    newPic = addTextBoxes(newPic,deadMessage2,selectedItem)
+  elif incorrectGuesses == 3:
+    newPic = chromakey(face3,picArms)
+    newPic = addTextBoxes(newPic,deadMessage3,selectedItem)
+  elif incorrectGuesses == 4:
+    newPic = chromakey(face4,picNoArms)   
+    newPic =  addTextBoxes(newPic,deadMessage4,selectedItem)
+  elif incorrectGuesses == 5:
+    newPic = chromakey(face5,picArms)
+    newPic = addTextBoxes(newPic,deadMessage5,selectedItem)
+  elif incorrectGuesses == 6:
+    newPic = chromakey(face6,picArms)
+    newPic = addTextBoxes(newpic,deadMessage6,"none")
+  show (newPic)
+  return newPic
   
