@@ -292,7 +292,8 @@ def runGame():
                       else:
                         displayMessage(messages[roomItems[currentRoom][int(selectedItem) - 1]])
                     else:
-                      # the user guessed an incorrect item. Anything that gets shown/played while correct goes here
+                      # the user guessed an incorrect item. Anything that gets shown/played while incorrect goes here
+                      updatePicStatus(incorrectGuesses,selectedItem)
                       incorrectGuesses += 1
                       guessedItems.append( roomItems[currentRoom][int(selectedItem) - 1] )
                       if incorrectGuesses == 6:
