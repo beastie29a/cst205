@@ -206,14 +206,8 @@ def updatePicStatus(incorrectGuesses, selectedItem):
   show(newPic)
   return newPic
 
-# Sound items
-
-
-
 #MODEL
 #Business logic goes here
-
-
 
 #Take user's input command and currentRoom value
 #Reassigns currentRoom to new room value based on
@@ -238,7 +232,6 @@ def moveRoom(inputString,currentRoom):
 def getRoomInformation(currentRoom):
  return messageRoomEntry % (roomName[currentRoom]) + "\n" +  roomDirections[currentRoom] + "\n" + messageDirection
 
-
 def inArray(selected, arr):
   for item in arr:
     if selected.lower() == item.lower():
@@ -246,14 +239,8 @@ def inArray(selected, arr):
       
   return false
 
-
-
-
-
-
 #VIEW
 #User Interface code goes here
-
 
 def displayRoomInformation(currentRoom):
   printNow(messageRoomEntry % (roomName[currentRoom]))
@@ -266,8 +253,6 @@ def displayMessage(message):
 
 def displayItems(Items):
   printNow('There are a few items in this room that might help save your friend!\nItem 1: %s, Item 2: %s, and Item 3: %s \n' % (Items[0], Items[1], Items[2]))
-
-
 
 # Sound functions
 #
@@ -308,11 +293,13 @@ def enterRoomSound(room):
   elif room == 7:
    soundLibrary('stairs')
   
-  
 # Finction to play sound when obtaining item
-def itemSound():
-  soundLibrary('dong')
-    
+def itemSound(bool):
+  if bool:
+    soundLibrary('dong')
+  else:
+    soundLibrary('buzzer')
+
 def soundLibrary( sound ):
   file = soundpath + sound + '.wav'
   sound = makeSound(file)
@@ -329,14 +316,6 @@ def helpMeSound():
 # Sound files courtesy of freesound.com
 # http://www.freesound.org/people/frederic.font/sounds/130878/
 
-
-
-
-
-
-
-
-
 #CONTROLLER
 #User interaction code goes here 
 
@@ -346,13 +325,11 @@ def getUserInput(string):
 def getUserInputForItem():
   return requestString("Select the number of the item you think will help save your friend,\nor any other key to continue\n")
 
-
-
 def runGame():
 
   # Threads to start music in background - Only way to stop is to exit Jes!!!
-  music_thread = threading.Thread(target=backgroundMusic)
-  music_thread.start()
+#  music_thread = threading.Thread(target=backgroundMusic)
+#  music_thread.start()
   
   displayIntroduction()
   
@@ -411,10 +388,11 @@ def runGame():
               
                   # it was a new guessed item
                   if not inArray(roomItems[currentRoom][int(selectedItem) - 1], guessedItems):
-                    itemSound()
+                    
                     if isCorrect:
                       # the user guessed a correct item. Anything that gets shown/played while correct goes here
                       correctGuesses += 1
+                      itemSound(true)
                       guessedItems.append( roomItems[currentRoom][int(selectedItem) - 1] )
                       if correctGuesses == 4:
                         pickItem = false
@@ -423,6 +401,7 @@ def runGame():
                     else:
                       # the user guessed an incorrect item. Anything that gets shown/played while incorrect goes here
                       incorrectGuesses += 1
+                      itemSound(false)
                       updatePicStatus(incorrectGuesses,selectedItem)
                       guessedItems.append( roomItems[currentRoom][int(selectedItem) - 1] )
                       if incorrectGuesses == 6:
@@ -449,15 +428,12 @@ def runGame():
   
   endGame(winner)      
      
-
 def endGame(winner):
   if winner:
     displayMessage(messages['won'])
   else:
     displayMessage(messages['lost'])
     
-
-
 def main():
   runGame()
 
