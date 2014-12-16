@@ -11,7 +11,9 @@ import threading
 
 # Set this to your repo path
 # Ex mac: /Users/rcontreras/code/cst205-final/Images/
+#         /Users/rcontreras/code/cst205-final/Sounds/
 # Ex win: C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\
+#         C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Sounds\\
 imagespath = "/Users/rcontreras/code/cst205-final/Images/"
 soundpath = "/Users/rcontreras/code/cst205-final/Sounds/"
 
@@ -271,7 +273,7 @@ def displayItems(Items):
 #
 # Game play music, need to figure out way to call function in the background
 def backgroundMusic():
-  file = path + 'background.wav'
+  file = soundpath + 'background.wav'
   sound = makeSound(file)
   rate = getSamplingRate(sound)
   samples = getLength(sound)
@@ -287,35 +289,32 @@ def backgroundMusic():
 #music_thread.start()
 #  Have not found a way to stop the thread
 
-# Functino to play sound when entering a room
+# Function to play sound when entering a room
 def enterRoomSound(room):
-  if room == 'front yard':
+  if room == 0:
     soundLibrary('doorclose')
-  elif room == 'living room':
+  elif room == 1:
    soundLibrary('doorclose')
-  elif room == 'bedroom':
+  elif room == 2:
    soundLibrary('doorclose')
-  elif room == 'kitchen':
+  elif room == 3:
    soundLibrary('doorclose')
-  elif room == 'office':
+  elif room == 4:
    soundLibrary('doorclose')
-  elif room == 'laundry room':
+  elif room == 5:
    soundLibrary('stairs')
-  elif room == 'back yard':
+  elif room == 6:
    soundLibrary('doorclose')
-  elif room == 'attic':
+  elif room == 7:
    soundLibrary('stairs')
   
   
 # Finction to play sound when obtaining item
-def itemSound(item):
-  if item == 'ladder':
-    soundLibrary('dong')
-  elif item == 'scissors':
-    soundLibrary('plock')
+def itemSound():
+  soundLibrary('dong')
     
 def soundLibrary( sound ):
-  file = path + sound + '.wav'
+  file = soundpath + sound + '.wav'
   sound = makeSound(file)
   play(sound)
 
@@ -351,6 +350,10 @@ def getUserInputForItem():
 
 def runGame():
 
+  # Threads to start music in background - Only way to stop is to exit Jes!!!
+  music_thread = threading.Thread(target=backgroundMusic)
+  music_thread.start()
+  
   displayIntroduction()
   
   GameOver = false
@@ -383,8 +386,10 @@ def runGame():
         # the input is correct handle the logic needed
         if (roomDirections[currentRoom].find(inputString.lower())>=0):
           
+          enterRoomSound(currentRoom)
           currentRoom=moveRoom(inputString,currentRoom)
           displayRoomInformation(currentRoom)
+          
           
           # back in the front yard and have not won. Tell them they they need to go back into the house
           if currentRoom == 0:
@@ -406,6 +411,7 @@ def runGame():
               
                   # it was a new guessed item
                   if not inArray(roomItems[currentRoom][int(selectedItem) - 1], guessedItems):
+                    itemSound()
                     if isCorrect:
                       # the user guessed a correct item. Anything that gets shown/played while correct goes here
                       correctGuesses += 1
@@ -437,6 +443,7 @@ def runGame():
             
         # incorrect input so redisplay the current room and info
         else:
+
           displayMessage(messageDirectionError)
           inputString=getUserInput(getRoomInformation(currentRoom))
   
