@@ -1,4 +1,4 @@
-# file name: FnalProject.py
+# file name: FinalProject.py
 # author: Julia Diliberto, Matthew Bozelka, Robert Contreras, Ryan Doherty
 # description: CST205 Final Project
 
@@ -32,18 +32,6 @@ messageEndGame = "Thanks for visiting. Good bye."
 
 
 
-
-
-
-
-
-
-
-#MODEL
-#Business logic goes here
-
-
-
 #Take user's input command and currentRoom value
 #Reassigns currentRoom to new room value based on
 #directional command and return new currentRoom
@@ -68,15 +56,6 @@ def getRoomInformation(currentRoom):
  return messageRoomEntry % (roomName[currentRoom]) + "\n" + roomDirections[currentRoom] + "\n" + messageDirection
 
 
-
-
-
-
-
-#VIEW
-#User Interface code goes here
-
-
 def displayRoomInformation(currentRoom):
   printNow(getRoomInformation(currentRoom))
 
@@ -86,19 +65,6 @@ def displayIntroduction():
 def displayMessage(message):
   printNow(message)
 
-
-
-
-
-
-
-
-
-
-
-
-#CONTROLLER
-#User interaction code goes here 
 
 def getUserInput(string):
   return requestString(string)
