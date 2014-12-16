@@ -16,8 +16,8 @@ import threading
 #         C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Sounds\\
 #imagespath = "/Users/rcontreras/code/cst205-final/Images/"
 #soundpath = "/Users/rcontreras/code/cst205-final/Sounds/"
-imagespath = "/Users/Ryan/CSUMB/CST205/Module7/cst205-final/Images/"
-soundpath = "/Users/Ryan/CSUMB/CST205/Module7/cst205-final/Sounds/"
+imagespath = "/Users/Captain/GitHub/cst205-final/Images/"
+soundpath = "/Users/Captain/GitHub/cst205-final/Sounds/"
 
 roomName = ["front yard", "living room", "bedroom", "kitchen", "office","laundry room","back yard","attic"]
 roomDirections = ["Go north to enter the house.\n",
@@ -350,7 +350,8 @@ def runGame():
     
     if (inputString=="help"):
       displayIntroduction()
-      displayRoomInformation(currentRoom)      
+      displayRoomInformation(currentRoom)
+      inputString=getUserInput(getRoomInformation(currentRoom))   
       
     else:
       
