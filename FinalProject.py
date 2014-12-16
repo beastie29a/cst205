@@ -405,7 +405,7 @@ def runGame():
                       # the user guessed an incorrect item. Anything that gets shown/played while incorrect goes here
                       incorrectGuesses += 1
                       itemSound(false)
-                      updatePicStatus(incorrectGuesses,selectedItem)
+                      updatePicStatus(incorrectGuesses,roomItems[currentRoom][int(selectedItem) - 1])
                       guessedItems.append( roomItems[currentRoom][int(selectedItem) - 1] )
                       if incorrectGuesses == 6:
                         pickItem = false
