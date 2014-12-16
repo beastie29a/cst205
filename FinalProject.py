@@ -8,7 +8,13 @@ import threading
 
 
 #Global variables
-  
+
+# Set this to your repo path
+# Ex mac: /Users/rcontreras/code/cst205-final/Images/
+# Ex win: C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\
+imagespath = "/Users/rcontreras/code/cst205-final/Images/"
+soundpath = "/Users/rcontreras/code/cst205-final/Sounds/"
+
 roomName = ["front yard", "living room", "bedroom", "kitchen", "office","laundry room","back yard","attic"]
 roomDirections = ["Go north to enter the house.\n",
                   "Go north to the bedroom, west to the kitchen,\n or south to the front yard\n",
@@ -82,8 +88,8 @@ messageRoomEntry = "You are in the %s\n"
 
 # Images items
 
-picArmsPath = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\picArms.jpg'
-picNoArmsPath = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hangman.jpg'
+picArmsPath = imagespath + 'picArms.jpg'
+picNoArmsPath = imagespath + 'hangman.jpg'
 picArms = makePicture(picArmsPath)
 picNoArms = makePicture(picNoArmsPath)
 newPic = makeEmptyPicture(getWidth(picArms), getHeight(picArms),white)
@@ -147,7 +153,7 @@ def initialPic (currentPic):
 # Takes newPic as input
 # Fills and displays newPic to represent inital status
 
-  face = makePicture('C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\worried.jpg')
+  face = makePicture('/Users/rcontreras/code/cst205-final/Images/worried.jpg')
   introMessage = "Man, you gotta help. Go look in the house. Find some tools."
   newPic = chromakey(face,picNoArms)
   newPic = addTextBoxes(newPic,introMessage, "none", currentPic)
@@ -158,12 +164,12 @@ def updatePicStatus(incorrectGuesses, selectedItem):
 # Updates the picture to reflect the number of mistakes made so far
 
 # Face file paths
-  face1Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\hurt.jpg'
-  face2Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\question.jpg'
-  face3Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\shocked.jpg'
-  face4Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\sad.jpg'
-  face5Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\pleading.jpg'
-  face6Path = 'C:\\Users\\GRAM\\Documents\\CST 205\\Final\\Images\\last cigarette.jpg'
+  face1Path = imagespath + 'hurt.jpg'
+  face2Path = imagespath + 'question.jpg'
+  face3Path = imagespath + 'shocked.jpg'
+  face4Path = imagespath + 'sad.jpg'
+  face5Path = imagespath + 'pleading.jpg'
+  face6Path = imagespath + 'last cigarette.jpg'
   face1=makePicture(face1Path)  
   deadMessage1 = "Do you want to see me pushing up daisies?"
   face2=makePicture(face2Path)
@@ -179,7 +185,7 @@ def updatePicStatus(incorrectGuesses, selectedItem):
  
   if incorrectGuesses == 1:
     newPic = chromakey(face1,picArms)
-    newPic = addTextBoxes(newpic,deadMessage1,selectedItem)
+    newPic = addTextBoxes(newPic,deadMessage1,selectedItem)
   elif incorrectGuesses == 2:
     newPic = chromakey(face2,picNoArms)
     newPic = addTextBoxes(newPic,deadMessage2,selectedItem)
@@ -194,13 +200,13 @@ def updatePicStatus(incorrectGuesses, selectedItem):
     newPic = addTextBoxes(newPic,deadMessage5,selectedItem)
   elif incorrectGuesses == 6:
     newPic = chromakey(face6,picArms)
-    newPic = addTextBoxes(newpic,deadMessage6,"none")
-  show (newPic)
+    newPic = addTextBoxes(newPic,deadMessage6,"none")
+  show(newPic)
   return newPic
 
 # Sound items
 
-soundpath = "/Users/rcontreras/code/cst205-final/Sounds/" # Set to root path of github repo
+
 
 #MODEL
 #Business logic goes here
@@ -410,8 +416,8 @@ def runGame():
                         displayMessage(messages[roomItems[currentRoom][int(selectedItem) - 1]])
                     else:
                       # the user guessed an incorrect item. Anything that gets shown/played while incorrect goes here
-                      updatePicStatus(incorrectGuesses,selectedItem)
                       incorrectGuesses += 1
+                      updatePicStatus(incorrectGuesses,selectedItem)
                       guessedItems.append( roomItems[currentRoom][int(selectedItem) - 1] )
                       if incorrectGuesses == 6:
                         pickItem = false
